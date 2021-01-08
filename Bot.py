@@ -67,5 +67,5 @@ for filename in os.listdir('./Pokedex'):
     if filename.endswith('.py'):
         client.load_extension(f'Pokedex.{filename[:-3]}')
 
-client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.YRgYppWdRnWqgvFfsIj7OMvW5P0')
+client.run('Nzk2MjU2ODA3NjM4NTMyMTE3.X_VR8A.Gnbgi3hFUb_Dm5pz5QgCrJ12xEw')
 
