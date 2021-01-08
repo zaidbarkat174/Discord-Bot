@@ -4,7 +4,7 @@ from discord.ext import commands
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = '.', intents = intents)
-map_array = ["Pallet Town", "1", "Viridian City", "2", "Viridian Forest", "Pewter City", "3", "Mt. Moon", "4", "Cerulean City", "5"]
+map_array = ["Pallet Town", "Route 1", "Viridian City", "Route 2", "Viridian Forest", "Pewter City", "Route 3", "Mt. Moon", "Route 4", "Cerulean City", "Route 5"]
 origin = "Pallet Town"
 back = ""
 forward = ""
@@ -47,7 +47,7 @@ async def move(ctx):
                 forward = map_array[i + 1]
                 two_forward = map_array[i + 2]
                 back = map_array[i - 1]
-    await ctx.send(f'you can go {forward} or {back} or {two_forward}')
+    await ctx.send(f'```You can go:\n1. {forward}\n2. {back}\n3. {two_forward}```')
 
     @client.command()
     async def go(ctx, response : str):
@@ -67,4 +67,5 @@ for filename in os.listdir('./Pokedex'):
     if filename.endswith('.py'):
         client.load_extension(f'Pokedex.{filename[:-3]}')
 
-client.run('Nzk2MjU2ODA3NjM4NTMyMTE3.X_VR8A.Gnbgi3hFUb_Dm5pz5QgCrJ12xEw')
+client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.YRgYppWdRnWqgvFfsIj7OMvW5P0')
+
