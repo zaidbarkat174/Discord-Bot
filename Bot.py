@@ -1,11 +1,17 @@
 import discord
 import os
 from discord.ext import commands
+# some_file.py
+import sys
+sys.path.append("./info")
+
+import pokedexDatabase
+
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = '.', intents = intents)
 map_array = ["Pallet Town", "Route 1", "Viridian City", "Route 2", "Viridian Forest", "Pewter City", "Route 3", "Mt. Moon", "Route 4", "Cerulean City", "Route 5"]
-origin = "Pallet Town"
+origin = pokedexDatabase.pokemon_array[0].name
 back = ""
 forward = ""
 two_forward = ""
@@ -67,5 +73,4 @@ for filename in os.listdir('./Pokedex'):
     if filename.endswith('.py'):
         client.load_extension(f'Pokedex.{filename[:-3]}')
 
-client.run('Nzk2MjU2ODA3NjM4NTMyMTE3.X_VR8A.Gnbgi3hFUb_Dm5pz5QgCrJ12xEw')
-
+client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.FPnBs4FDsuMs_-_k-ZicPhx6ZbQ')

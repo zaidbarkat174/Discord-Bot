@@ -1,4 +1,3 @@
-import pokedex
 class Pokemon:
     def __init__(self, name, number, type1, type2, catch_rate):
         self.name = name
