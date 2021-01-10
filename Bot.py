@@ -11,7 +11,7 @@ import pokedexDatabase
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = '.', intents = intents)
 map_array = ["Pallet Town", "Route 1", "Viridian City", "Route 2", "Viridian Forest", "Pewter City", "Route 3", "Mt. Moon", "Route 4", "Cerulean City", "Route 5"]
-origin = pokedexDatabase.pokemon_array[0].name
+origin = "Pallet Town"
 back = ""
 forward = ""
 two_forward = ""
@@ -55,22 +55,26 @@ async def move(ctx):
                 back = map_array[i - 1]
     await ctx.send(f'```You can go:\n1. {forward}\n2. {back}\n3. {two_forward}```')
 
-    @client.command()
-    async def go(ctx, response : str):
-        global origin
-        if response == forward:
-            origin = forward
-        elif response == two_forward:
-            origin = two_forward
-        elif response == back:
-            origin = back
-        else:
-            print("not the right choice!!")
+@client.command()
+async def go(ctx, response : str):
+    global origin, forward, two_forward, back
+    print(origin)
+    print(forward)
+    if response == forward:
+        origin = forward
         await ctx.send(f'you are now in {origin}')
+    elif response == two_forward:
+        origin = two_forward
+        await ctx.send(f'you are now in {origin}')
+    elif response == back:
+        origin = back
+        await ctx.send(f'you are now in {origin}')
+    else:
+        await ctx.send(f'Cannot travel there at this time.')
 
 
 for filename in os.listdir('./Pokedex'):
     if filename.endswith('.py'):
         client.load_extension(f'Pokedex.{filename[:-3]}')
 
-client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.FPnBs4FDsuMs_-_k-ZicPhx6ZbQ')
+client.run('Nzk2MjU2ODA3NjM4NTMyMTE3.X_VR8A.rbRYxXigvbHg2GX4nuoZDJ_MY9M')
