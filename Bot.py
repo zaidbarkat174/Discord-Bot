@@ -13,6 +13,7 @@ intents = discord.Intents(messages = True, guilds = True, reactions = True, memb
 client = commands.Bot(command_prefix = '.', intents = intents)
 map_array = ["Pallet Town", "Route 1", "Viridian City", "Route 2", "Viridian Forest", "Pewter City", "Route 3", "Mt. Moon", "Route 4", "Cerulean City", "Route 5"]
 origin = "Pallet Town"
+object = ""
 back = ""
 forward = ""
 two_forward = ""
@@ -38,7 +39,7 @@ async def shutdown(ctx):
 @commands.is_owner()
 async def restart(ctx):
     await ctx.bot.logout()
-    await login("Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.l4vLqhK-auWlcAMpykA1KhEc", bot=True)
+    await login("Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.szQQ8yQhbOAuP9mPYLDZA", bot=True)
 
 @client.command()
 async def location(ctx):
@@ -84,15 +85,20 @@ async def go(ctx, response : str):
     else:
         await ctx.send(f'Cannot travel there at this time.')
 
-        await ctx.send(f"You have encountered {route_1}! Do you want to try to catch it?")
 @client.command()
-async def catch(ctx):
+async def search(ctx):
+    global object
     if origin == "Route 1":
         route_1_chances = 5, 5
         route_1_pokemon = pokedexDatabase.pokemon_array[15].name, pokedexDatabase.pokemon_array[18].name
+        route_1_dic = {}
+        for val in pokedexDatabase.pokemon_array:
+            route_1_dic[val.name] = val
         route_1 = [v for v, d in zip(route_1_pokemon, route_1_chances) for i in range(d)]
         for i in range(1):
-            await ctx.send("You have encountered ***" + random.choice(route_1) + "***! Do you want to try to catch it?")
+            pokemon = random.choice(route_1)
+            object = route_1_dic[pokemon]
+            await ctx.send("You have encountered ***" + pokemon + "***! Do you want to try to catch it?")
     elif origin == "Route 2":
         route_2_chances = 15, 45, 40
         route_2_pokemon = pokedexDatabase.pokemon_array[12].name, pokedexDatabase.pokemon_array[15].name, pokedexDatabase.pokemon_array[18].name
@@ -240,8 +246,21 @@ async def catch(ctx):
     else:
         await ctx.send("This area contains no wild Pokemon")
 
+@client.command()
+async def catch(ctx, response : str):
+    global object
+    if response == "yes":
+        n = random.randint(0, 255)
+        if n > object.catch_rate:
+            await ctx.send("The pokemon has broken free!")
+        else:
+            m = random.randint(0, 255)
+            await ctx.send(f"You have caught {object.name}! Congratulations!")
+
+
+
 for filename in os.listdir('./Pokedex'):
     if filename.endswith('.py'):
         client.load_extension(f'Pokedex.{filename[:-3]}')
 
-client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.l4vLqhK-auWlcAMpykA1KbhHhEc')
+client.run('Nzk1NDMyMjg4MDgyOTg0OTcx.X_JSCw.szQQ8yQhbOAuP9mRtdkZA')
